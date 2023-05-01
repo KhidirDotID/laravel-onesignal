@@ -1,6 +1,6 @@
 <?php
 
-namespace Ladumor\OneSignal;
+namespace KhidirDotID\OneSignal;
 
 /**
  * Class OneSignalClient
@@ -114,7 +114,7 @@ class OneSignalClient
         return array(
             'Content-Type: application/json; charset=utf-8',
             'X-Requested-With:XMLHttpRequest',
-            'Authorization: Basic '.$this->getAuthorization(),
+            'Authorization: Basic ' . $this->getAuthorization(),
         );
     }
 

@@ -1,18 +1,20 @@
 <?php
 
-namespace Ladumor\OneSignal;
+namespace KhidirDotID\OneSignal;
+
+use KhidirDotID\OneSignal\OneSignalClient;
 
 // end point
 define("NOTIFICATIONS", "notifications");
 define("DEVICES", "players");
-define("APPS","apps");
-define("SEGMENTS","segments");
+define("APPS", "apps");
+define("SEGMENTS", "segments");
+
 /**
  * Class OneSignalManager
  */
 class OneSignalManager extends OneSignalClient
 {
-
     /**
      * OneSignalManager constructor.
      */
@@ -26,11 +28,11 @@ class OneSignalManager extends OneSignalClient
      */
     protected function initConfig()
     {
-        $this->setUrl(config('one-signal.url'));
-        $this->setAppId(config('one-signal.app_id'));
-        $this->setAuthorization(config('one-signal.authorize'));
-        $this->setAuthKey(config('one-signal.auth_key'));
-        $this->setMutableContent(config('one-signal.mutable_content'));
+        $this->setUrl(config('onesignal.url'));
+        $this->setAppId(config('onesignal.app_id'));
+        $this->setAuthorization(config('onesignal.authorize'));
+        $this->setAuthKey(config('onesignal.auth_key'));
+        $this->setMutableContent(config('onesignal.mutable_content'));
     }
 
     /**
@@ -50,7 +52,7 @@ class OneSignalManager extends OneSignalClient
         $fields['app_id']          = $this->getAppId();
         $fields['mutable_content'] = $this->getMutableContent();
 
-        if ( ! isset($fields['contents']) || empty($fields['contents'])) {
+        if (!isset($fields['contents']) || empty($fields['contents'])) {
             $fields['contents'] = $content;
         }
 
@@ -69,7 +71,7 @@ class OneSignalManager extends OneSignalClient
             $appId = $this->getAppId();
         }
 
-        return $this->delete($this->getUrl(NOTIFICATIONS.'/'.$notificationId.'?app_id='.$appId));
+        return $this->delete($this->getUrl(NOTIFICATIONS . '/' . $notificationId . '?app_id=' . $appId));
     }
 
     /**
@@ -158,11 +160,11 @@ class OneSignalManager extends OneSignalClient
      */
     public function addDevice($fields)
     {
-        if ( ! isset($fields['app_id']) || empty($fields['app_id'])) {
+        if (!isset($fields['app_id']) || empty($fields['app_id'])) {
             $fields['app_id'] = $this->getAppId();
         }
 
-        if ( ! isset($fields['language']) || empty($fields['language'])) {
+        if (!isset($fields['language']) || empty($fields['language'])) {
             $fields['language'] = "en";
         }
 
@@ -179,11 +181,11 @@ class OneSignalManager extends OneSignalClient
      */
     public function updateDevice($fields, $playerId)
     {
-        if ( ! isset($fields['app_id']) || empty($fields['app_id'])) {
+        if (!isset($fields['app_id']) || empty($fields['app_id'])) {
             $fields['app_id'] = $this->getAppId();
         }
 
-        if ( ! isset($fields['language']) || empty($fields['language'])) {
+        if (!isset($fields['language']) || empty($fields['language'])) {
             $fields['language'] = "en";
         }
 
@@ -199,9 +201,9 @@ class OneSignalManager extends OneSignalClient
      */
     public function deleteDevice($playerId)
     {
-        $url = $this->getUrl(DEVICES) . '/' . $playerId. '?app_id='.$this->getAppId();
+        $url = $this->getUrl(DEVICES) . '/' . $playerId . '?app_id=' . $this->getAppId();
 
-        return $this->delete( $url);
+        return $this->delete($url);
     }
 
     /**
@@ -218,7 +220,7 @@ class OneSignalManager extends OneSignalClient
             $appId = $this->getAppId();
         }
 
-        return $this->post($this->getUrl(APPS.'/'.$appId.'/'.SEGMENTS), json_encode($fields));
+        return $this->post($this->getUrl(APPS . '/' . $appId . '/' . SEGMENTS), json_encode($fields));
     }
 
     /**
@@ -233,7 +235,7 @@ class OneSignalManager extends OneSignalClient
             $appId = $this->getAppId();
         }
 
-        return $this->delete($this->getUrl(APPS.'/'.$appId.'/'.SEGMENTS.'/'.$segmentId));
+        return $this->delete($this->getUrl(APPS . '/' . $appId . '/' . SEGMENTS . '/' . $segmentId));
     }
 
     /**
@@ -261,7 +263,7 @@ class OneSignalManager extends OneSignalClient
     {
         $this->setAuthorization($this->getAuthKey());
 
-        $url = $this->getUrl(APPS. '/'.$appId);
+        $url = $this->getUrl(APPS . '/' . $appId);
 
         return $this->get($url);
     }
@@ -296,6 +298,6 @@ class OneSignalManager extends OneSignalClient
             $appId = $this->getAppId();
         }
 
-        return $this->put($this->getUrl(APPS.'/'.$appId), json_encode($fields));
+        return $this->put($this->getUrl(APPS . '/' . $appId), json_encode($fields));
     }
 }

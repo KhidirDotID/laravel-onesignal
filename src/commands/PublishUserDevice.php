@@ -1,6 +1,6 @@
 <?php
 
-namespace Ladumor\OneSignal\commands;
+namespace KhidirDotID\OneSignal\commands;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Console\Command;
@@ -12,7 +12,7 @@ class PublishUserDevice extends Command
      *
      * @var string
      */
-    protected $name = 'one-signal.userDevice:publish';
+    protected $name = 'onesignal.userDevice:publish';
 
     /**
      * The console command description.
@@ -31,6 +31,7 @@ class PublishUserDevice extends Command
 
         $this->composer = app()['composer'];
     }
+
     public function handle()
     {
         $controllerDir = app_path('Http/Controllers/API');
@@ -38,8 +39,8 @@ class PublishUserDevice extends Command
             File::makeDirectory($controllerDir);
         }
 
-        $controllerTemplate = file_get_contents(__DIR__.'/../stubs/UserDeviceAPIController.stub');
-        $this->createFile($controllerDir. DIRECTORY_SEPARATOR, 'UserDeviceAPIController.php', $controllerTemplate);
+        $controllerTemplate = file_get_contents(__DIR__ . '/../stubs/UserDeviceAPIController.stub');
+        $this->createFile($controllerDir . DIRECTORY_SEPARATOR, 'UserDeviceAPIController.php', $controllerTemplate);
         $this->info('UserDeviceController published.');
 
         $modelDir = app_path('Models');
@@ -48,8 +49,8 @@ class PublishUserDevice extends Command
             File::makeDirectory($modelDir);
         }
 
-        $modelTemplate = file_get_contents(__DIR__.'/../stubs/UserDevice.stub');
-        $this->createFile($modelDir. DIRECTORY_SEPARATOR, 'UserDevice.php', $modelTemplate);
+        $modelTemplate = file_get_contents(__DIR__ . '/../stubs/UserDevice.stub');
+        $this->createFile($modelDir . DIRECTORY_SEPARATOR, 'UserDevice.php', $modelTemplate);
         $this->info('UserDevice published.');
 
         $repoDir = app_path('Repositories');
@@ -58,13 +59,13 @@ class PublishUserDevice extends Command
             File::makeDirectory($repoDir);
         }
 
-        $repoTemplate = file_get_contents(__DIR__.'/../stubs/UserDeviceRepository.stub');
-        $this->createFile($repoDir. DIRECTORY_SEPARATOR, 'UserDeviceRepository.php', $repoTemplate);
+        $repoTemplate = file_get_contents(__DIR__ . '/../stubs/UserDeviceRepository.stub');
+        $this->createFile($repoDir . DIRECTORY_SEPARATOR, 'UserDeviceRepository.php', $repoTemplate);
         $this->info('UserDeviceRepository published.');
 
-        $fileName = date('Y_m_d_His').'_'.'create_user_devices_table.php';
+        $fileName = date('Y_m_d_His') . '_' . 'create_user_devices_table.php';
 
-        $repoTemplate = file_get_contents(__DIR__.'/../stubs/CreateUserDeviceTable.stub');
+        $repoTemplate = file_get_contents(__DIR__ . '/../stubs/CreateUserDeviceTable.stub');
         $this->createFile(base_path('database/migrations/'), $fileName, $repoTemplate);
         $this->info('UserDevice migration created.');
 
@@ -84,7 +85,7 @@ class PublishUserDevice extends Command
             mkdir($path, 0755, true);
         }
 
-        $path = $path.$fileName;
+        $path = $path . $fileName;
 
         file_put_contents($path, $contents);
     }
