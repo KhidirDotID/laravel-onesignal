@@ -11,7 +11,7 @@ return [
 
     /*
     |-------------------------------------------------------------------------------------------
-    | App Id - One Signal have different app id for every app.
+    | App Id - One Signal have different App Id for every app.
     |
     | Based on App you are using, you can change the App Id here and specify here
     |-------------------------------------------------------------------------------------------
@@ -21,14 +21,13 @@ return [
 
     /*
     |-------------------------------------------------------------------------------------------
-    | Authorize - One Signal have different Authorize for every app.
+    | API Key - One Signal have different API Key for every app.
     |
-    | Based on App you are using, you can change the Authorize here and specify here
+    | Based on App you are using, you can change the API Key here and specify here
     |-------------------------------------------------------------------------------------------
     |
     */
-
-    'authorize'       => env('ONE_SIGNAL_AUTHORIZE'),
+    'api_key' => env('ONE_SIGNAL_API_KEY'),
 
     /*
     |-------------------------------------------------------------------------------------------
@@ -41,7 +40,7 @@ return [
 
     /*
     |-------------------------------------------------------------------------------------------
-    | Auth Key - One Signal have Auth key of account.
+    | Auth Key - One Signal have Auth Key of account.
     |
     | You can manage apps
     |-------------------------------------------------------------------------------------------

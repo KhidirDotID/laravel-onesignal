@@ -30,7 +30,7 @@ class OneSignalManager extends OneSignalClient
     {
         $this->setUrl(config('onesignal.url'));
         $this->setAppId(config('onesignal.app_id'));
-        $this->setAuthorization(config('onesignal.authorize'));
+        $this->setApiKey(config('onesignal.api_key'));
         $this->setAuthKey(config('onesignal.auth_key'));
         $this->setMutableContent(config('onesignal.mutable_content'));
     }
@@ -45,6 +45,8 @@ class OneSignalManager extends OneSignalClient
      */
     public function sendPush($fields, $message = '')
     {
+        $this->setAuthorization($this->getApiKey());
+
         $content = array(
             "en" => $message,
         );
@@ -67,6 +69,8 @@ class OneSignalManager extends OneSignalClient
      */
     public function cancelNotification($notificationId, $appId = null)
     {
+        $this->setAuthorization($this->getApiKey());
+
         if (empty($appId)) { // take a default if does not specified
             $appId = $this->getAppId();
         }
@@ -84,6 +88,8 @@ class OneSignalManager extends OneSignalClient
      */
     public function getNotifications($limit = 50, $offset = 0)
     {
+        $this->setAuthorization($this->getApiKey());
+
         $url = $this->getUrl(NOTIFICATIONS) . '?app_id=' . $this->getAppId() . '&limit=' . $limit . '&offset=' . $offset;
 
         return $this->get($url);
@@ -99,6 +105,8 @@ class OneSignalManager extends OneSignalClient
      */
     public function getOutcomes($params = [])
     {
+        $this->setAuthorization($this->getApiKey());
+
         $url = $this->getUrl(APPS) . '/outcomes' . $this->getAppId();
 
         if (count($params) > 0) {
@@ -117,6 +125,8 @@ class OneSignalManager extends OneSignalClient
      */
     public function getNotification($notificationId)
     {
+        $this->setAuthorization($this->getApiKey());
+
         $url = $this->getUrl(NOTIFICATIONS) . '/' . $notificationId . "?app_id=" . $this->getAppId();
 
         return $this->get($url);
@@ -132,6 +142,8 @@ class OneSignalManager extends OneSignalClient
      */
     public function getDevices($limit = 50, $offset = 0)
     {
+        $this->setAuthorization($this->getApiKey());
+
         $url = $this->getUrl(DEVICES) . '?app_id=' . $this->getAppId() . '&limit=' . $limit . '&offset=' . $offset;
 
         return $this->get($url);
@@ -146,6 +158,8 @@ class OneSignalManager extends OneSignalClient
      */
     public function getDevice($playerId)
     {
+        $this->setAuthorization($this->getApiKey());
+
         $url = $this->getUrl(DEVICES) . '/' . $playerId . "?app_id=" . $this->getAppId();
 
         return $this->get($url);
@@ -160,6 +174,8 @@ class OneSignalManager extends OneSignalClient
      */
     public function addDevice($fields)
     {
+        $this->setAuthorization($this->getApiKey());
+
         if (!isset($fields['app_id']) || empty($fields['app_id'])) {
             $fields['app_id'] = $this->getAppId();
         }
@@ -181,6 +197,8 @@ class OneSignalManager extends OneSignalClient
      */
     public function updateDevice($fields, $playerId)
     {
+        $this->setAuthorization($this->getApiKey());
+
         if (!isset($fields['app_id']) || empty($fields['app_id'])) {
             $fields['app_id'] = $this->getAppId();
         }
@@ -201,6 +219,8 @@ class OneSignalManager extends OneSignalClient
      */
     public function deleteDevice($playerId)
     {
+        $this->setAuthorization($this->getApiKey());
+
         $url = $this->getUrl(DEVICES) . '/' . $playerId . '?app_id=' . $this->getAppId();
 
         return $this->delete($url);
@@ -216,6 +236,8 @@ class OneSignalManager extends OneSignalClient
      */
     public function createSegment($fields, $appId = null)
     {
+        $this->setAuthorization($this->getApiKey());
+
         if (empty($appId)) { // take a default if does not specified
             $appId = $this->getAppId();
         }
@@ -231,6 +253,8 @@ class OneSignalManager extends OneSignalClient
      */
     public function deleteSegment($segmentId, $appId = null)
     {
+        $this->setAuthorization($this->getApiKey());
+
         if (empty($appId)) { // take a default if does not specified
             $appId = $this->getAppId();
         }

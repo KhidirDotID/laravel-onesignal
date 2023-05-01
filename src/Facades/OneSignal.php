@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static array|mixed updateApp(array $fields, string $appId = null)
  * @method static void setUrl(string $url)
  * @method static void setAppId(string $appId)
- * @method static void setAuthorization(string $key)
+ * @method static void setApiKey(string $apiKey)
  * @method static void setAuthKey(string $authKey)
  * @method static void setMutableContent(bool $mutableContent)
  */

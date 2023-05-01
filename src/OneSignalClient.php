@@ -7,11 +7,67 @@ namespace KhidirDotID\OneSignal;
  */
 class OneSignalClient
 {
+    // One Signal App ID
+    protected $appId;
+
+    /**
+     * @return string $appId
+     */
+    public function getAppId()
+    {
+        return $this->appId;
+    }
+
+    /**
+     * @param string $appId
+     */
+    public function setAppId($appId)
+    {
+        $this->appId = $appId;
+    }
+
+    // One Signal App Key
+    public $apiKey;
+
+    /**
+     * @return string $apiKey
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * @param string $key
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+    }
+
+    // One Signal Auth key
+    protected $authKey;
+
+    /**
+     * @return string $authKey
+     */
+    public function getAuthKey()
+    {
+        return $this->authKey;
+    }
+
+    /**
+     * @param  string  $authKey
+     */
+    public function setAuthKey($authKey)
+    {
+        $this->authKey = trim($authKey);
+    }
+
     // One Signal App Key
     public $authorization;
 
     /**
-     *
      * @return string $authorization
      */
     private function getAuthorization()
@@ -20,11 +76,11 @@ class OneSignalClient
     }
 
     /**
-     * @param  string  $key
+     * @param  string  $authorization
      */
-    public function setAuthorization($key)
+    public function setAuthorization($authorization)
     {
-        $this->authorization = $key;
+        $this->authorization = $authorization;
     }
 
     // One Signal EndPoint Url
@@ -48,27 +104,16 @@ class OneSignalClient
         $this->url = $url;
     }
 
-    // One Signal App ID
-    protected $appId;
-
-    /**
-     * @return string $appId
-     */
-    public function getAppId()
-    {
-        return $this->appId;
-    }
-
-    /**
-     * @param string $appId
-     */
-    public function setAppId($appId)
-    {
-        $this->appId = $appId;
-    }
-
     // Default mutable content is enabled
     protected $mutableContent;
+
+    /**
+     * @return string $mutableContent
+     */
+    public function getMutableContent()
+    {
+        return $this->mutableContent;
+    }
 
     /**
      * @param string $mutableContent
@@ -79,33 +124,6 @@ class OneSignalClient
     }
 
     /**
-     * @return string $mutableContent
-     */
-    public function getMutableContent()
-    {
-        return $this->mutableContent;
-    }
-
-    // One Signal Auth key
-    protected $authKey;
-
-    /**
-     * @param  string  $authKey
-     */
-    public function setAuthKey($authKey)
-    {
-        $this->authKey = trim($authKey);
-    }
-
-    /**
-     * @return string $authKey
-     */
-    public function getAuthKey()
-    {
-        return $this->authKey;
-    }
-
-    /**
      * return headers
      * @return array
      */
@@ -113,13 +131,13 @@ class OneSignalClient
     {
         return array(
             'Content-Type: application/json; charset=utf-8',
-            'X-Requested-With:XMLHttpRequest',
+            'X-Requested-With: XMLHttpRequest',
             'Authorization: Basic ' . $this->getAuthorization(),
         );
     }
 
     /**
-     * GEt Method
+     * Get Method
      * @param string $url
      * @return array|mixed
      */
