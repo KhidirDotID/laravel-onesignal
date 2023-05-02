@@ -13,12 +13,14 @@ class OneSignalServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->mergeConfigFrom($this->getConfigPath(), 'onesignal');
+
         $this->app->singleton('onesignal', function ($app) {
-            return new OneSignalManager;
+            return new OneSignalManager($app);
         });
 
         $this->app->singleton('onesignal.userDevice:publish', function ($app) {
-            return new PublishUserDevice;
+            return new PublishUserDevice($app);
         });
 
         $this->commands([
@@ -31,10 +33,13 @@ class OneSignalServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $configPath = __DIR__ . '/../../config/onesignal.php';
-
         $this->publishes([
-            $configPath => config_path('onesignal.php'),
-        ]);
+            $this->getConfigPath() => config_path('onesignal.php'),
+        ], 'onesignal-config');
+    }
+
+    public function getConfigPath()
+    {
+        return __DIR__ . '/../../config/onesignal.php';
     }
 }
