@@ -43,7 +43,7 @@ class OneSignalManager extends OneSignalClient
      *
      * @return array|mixed
      */
-    public function sendPush(array $fields, string $message): mixed
+    public function sendPush(array $fields, string $message = ''): mixed
     {
         $this->setAuthorization($this->getApiKey());
 
