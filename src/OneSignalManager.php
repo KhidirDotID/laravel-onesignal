@@ -26,7 +26,7 @@ class OneSignalManager extends OneSignalClient
     /**
      * Set up required configuration
      */
-    protected function initConfig()
+    protected function initConfig(): void
     {
         $this->setUrl(config('onesignal.url'));
         $this->setAppId(config('onesignal.app_id'));
@@ -38,36 +38,36 @@ class OneSignalManager extends OneSignalClient
     /**
      * Send a Push Notification to user on device
      *
-     * @param $fields
+     * @param array $fields
      * @param string $message
      *
      * @return array|mixed
      */
-    public function sendPush($fields, $message = '')
+    public function sendPush(array $fields, string $message): mixed
     {
         $this->setAuthorization($this->getApiKey());
 
-        $content = array(
+        $content = [
             "en" => $message,
-        );
+        ];
 
         $fields['app_id']          = $this->getAppId();
         $fields['mutable_content'] = $this->getMutableContent();
 
-        if (!isset($fields['contents']) || empty($fields['contents'])) {
+        if (empty($fields['contents'])) {
             $fields['contents'] = $content;
         }
 
-        return $this->post($this->getUrl(NOTIFICATIONS), json_encode($fields));
+        return $this->post($this->getUrl(NOTIFICATIONS, ['c' => 'push']), json_encode($fields));
     }
 
     /**
-     * @param $notificationId
+     * @param string $notificationId
      * @param null $appId
      *
      * @return array|mixed
      */
-    public function cancelNotification($notificationId, $appId = null)
+    public function cancelNotification(string $notificationId, $appId = null): mixed
     {
         $this->setAuthorization($this->getApiKey());
 
@@ -230,11 +230,11 @@ class OneSignalManager extends OneSignalClient
      * Create Segment
      *
      * @param $fields
-     * @param  null  $appId
+     * @param null $appId
      *
      * @return array|mixed
      */
-    public function createSegment($fields, $appId = null)
+    public function createSegment($fields, $appId = null): mixed
     {
         $this->setAuthorization($this->getApiKey());
 
@@ -246,12 +246,12 @@ class OneSignalManager extends OneSignalClient
     }
 
     /**
-     * @param $segmentId
-     * @param  null  $appId
+     * @param string $segmentId
+     * @param null $appId
      *
      * @return array|mixed
      */
-    public function deleteSegment($segmentId, $appId = null)
+    public function deleteSegment(string $segmentId, $appId = null): mixed
     {
         $this->setAuthorization($this->getApiKey());
 
@@ -267,7 +267,7 @@ class OneSignalManager extends OneSignalClient
      *
      * @return array|mixed
      */
-    public function getApps()
+    public function getApps(): mixed
     {
         $this->setAuthorization($this->getAuthKey());
 
@@ -279,11 +279,11 @@ class OneSignalManager extends OneSignalClient
     /**
      * GET single app of your one signal.
      *
-     * @param null|string $appId
+     * @param string|null $appId
      *
      * @return array|mixed
      */
-    public function getApp($appId = null)
+    public function getApp(string $appId = null): mixed
     {
         $this->setAuthorization($this->getAuthKey());
 
@@ -299,7 +299,7 @@ class OneSignalManager extends OneSignalClient
      *
      * @return array|mixed
      */
-    public function createApp($fields)
+    public function createApp(array $fields): mixed
     {
         $this->setAuthorization($this->getAuthKey());
 
@@ -310,11 +310,11 @@ class OneSignalManager extends OneSignalClient
      * Update existing application on your one signal.
      *
      * @param array $fields
-     * @param null|string $appId
+     * @param string|null $appId
      *
      * @return array|mixed
      */
-    public function updateApp($fields, $appId = null)
+    public function updateApp(array $fields, string $appId = null): mixed
     {
         $this->setAuthorization($this->getAuthKey());
 
